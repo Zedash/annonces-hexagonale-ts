@@ -16,7 +16,7 @@
     "dev": "tsx watch src/main.ts",
     "build": "tsc -p .",
     "start": "node dist/main.js",
-    "test": "ts-node src/tests/PublierAnnonce.spec.ts"
+    "test": "node --import tsx --test \"src/**/*.spec.ts\""
   },
   "dependencies": {
     "express": "^5.1.0",

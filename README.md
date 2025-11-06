@@ -9,6 +9,7 @@ Mini-API REST **TypeScript/Express** illustrant l’**architecture hexagonale (P
 * Adaptateur sortant **document** basé fichier JSON (fs)
 * Endpoints : `POST /annonces`, `GET /annonces/:id`, `PATCH /annonces/:id`
 * Zod pour les validations
+* Tests unitaires et d’intégration sans I/O grâce à un dépôt **InMemory**
 
 ## 🚀 Démarrage rapide
 
@@ -88,7 +89,10 @@ src/
 ├─ app/
 │  └─ http/AnnonceController.ts
 ├─ infrastructure/
-│  └─ repositories/AnnonceRepositoryJsonFs.ts
+│  ├─ repositories/AnnonceRepositoryJsonFs.ts
+│  └─ repositories/AnnonceRepositoryInMemory.ts
+├─ tests/
+│  └─ usecases.spec.ts
 └─ main.ts
 ```
 
@@ -96,19 +100,36 @@ src/
 
 ```json
 {
-  "dev": "ts-node-dev --respawn src/main.ts",
+  "dev": "tsx watch src/main.ts",
   "build": "tsc -p .",
-  "start": "node dist/main.js"
+  "start": "node dist/main.js",
+  "test": "node --import tsx --test \"src/**/*.spec.ts\" --test-reporter spec"
 }
 ```
+
+## 🧪 Tests
+
+Les tests s’exécutent via le runner natif de Node.js, sans Jest/Vitest.
+
+```bash
+# Lancer tous les tests
+npm test
+
+# Ou exécuter un fichier de test précis
+node --import tsx --test src/tests/usecases.spec.ts
+```
+
+Les tests couvrent :
+
+* **PublierAnnonce** : création et validation de données
+* **ConsulterAnnonce** : lecture d’une annonce existante ou inexistante
+* **MettreAJourAnnonce** : modifications partielles et validations
+
+💡 Le dépôt **InMemory** permet d’exécuter les tests sans lecture/écriture sur le disque.
 
 ## 🔒 Notes
 
 * Le repo JSON n’est **pas concurrent-safe** (usage démo/dev). Pour la prod, remplacer par un adaptateur DB réel (RDS, DynamoDB, etc.) sans toucher au domaine.
-
-## 🧪 Tests (optionnel)
-
-* Tester les use cases avec un dépôt InMemory pour éviter l’I/O.
 
 ## 📝 Licence
 
