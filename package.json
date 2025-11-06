@@ -1,0 +1,30 @@
+{
+  "name": "annonces-hexagonale-ts",
+  "version": "1.0.0",
+  "description": "Mini-API REST **TypeScript/Express** illustrant l’**architecture hexagonale (Ports & Adapters)** pour un site de petites annonces. **Aucune base externe requise** : la persistance se fait dans un simple fichier JSON.",
+  "homepage": "https://github.com/Zedash/annonces-hexagonale-ts#readme",
+  "bugs": {
+    "url": "https://github.com/Zedash/annonces-hexagonale-ts/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zedash/annonces-hexagonale-ts.git"
+  },
+  "license": "MIT License",
+  "author": "",
+  "scripts": {
+    "dev": "tsx watch src/main.ts",
+    "build": "tsc -p .",
+    "start": "node dist/main.js",
+    "test": "ts-node src/tests/PublierAnnonce.spec.ts"
+  },
+  "dependencies": {
+    "express": "^5.1.0",
+    "zod": "^4.1.12"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.3"
+  }
+}
